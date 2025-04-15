@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { validateCar, type Car, type ValidatedCar } from "~/types/car";
-import { AddCarForm } from "./addCarForm";
+import { AddCarForm } from "./AddCarForm";
 import { Paper, Stack } from "@mui/material";
 import carsJson from '../../data/cars.json';
 import { CarTable } from "./CarTable";
