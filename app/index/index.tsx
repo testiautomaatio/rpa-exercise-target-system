@@ -21,21 +21,16 @@ export function Index() {
         const { valid, errors, emojis } = validateCar(submitted);
 
         if (valid) {
-            setSnackMessage({ severity: "success", message: "The car was added successfully" });
+            setSnackMessage({ severity: "success", message: `${submitted.licensePlate} was added successfully!` });
         } else {
             Object.values(errors).forEach((error) => console.error(error));
-            setSnackMessage({ severity: "warning", message: "This car did not match the legacy system. Please check the console for details." });
+            setSnackMessage({ severity: "warning", message: "This car did not match the expected input. Please check the console for details." });
         }
 
-        setCars([...cars, { ...submitted, valid, emojis, errors: Object.values(errors) }]);
+        setCars([...cars, { id: new Date().getTime(), ...submitted, valid, emojis, errors: Object.values(errors) }]);
     }
 
-    const correctPlates = carsJson.map(c => c.licensePlate);
-    const validPlatesAdded = cars.filter(c => c.valid).map(c => c.licensePlate);
 
-    const uniquePlates = correctPlates.filter(p => validPlatesAdded.includes(p));
-    const progress: [number, number] = [uniquePlates.length, correctPlates.length];
-    const done = correctPlates.every(p => validPlatesAdded.includes(p));
 
     return (
         <div>
@@ -43,7 +38,7 @@ export function Index() {
 
             <Instructions />
 
-            <ExerciseProgress done={done} progress={progress} />
+            <ExerciseProgress cars={cars} />
 
             <Stack gap={2} my={2} alignItems={{ md: "stretch", xs: "stretch" }} justifyContent="flex-start" flexDirection={{ xs: "column", md: "row" }}>
                 <Paper sx={{ p: 2, flexGrow: 0, flexShrink: 0 }} elevation={4}>
@@ -95,12 +90,22 @@ function Instructions() {
     </Stack>
 }
 
-function ExerciseProgress({ done, progress }: { done: boolean, progress: [number, number] }) {
+function ExerciseProgress({ cars }: { cars: ValidatedCar[] }) {
+    const correctPlates = carsJson.map(c => c.licensePlate);
+    const validPlatesAdded = cars.filter(c => c.valid).map(c => c.licensePlate);
+
+    const uniquePlates = correctPlates.filter(p => validPlatesAdded.includes(p));
+    const progress: [number, number] = [uniquePlates.length, correctPlates.length];
+    const done = correctPlates.every(p => validPlatesAdded.includes(p));
+    const invalidCount = cars.filter(c => !c.valid).length;
+
     return <Stack gap={2} mb={4}>
 
-        <Typography>Cars added: {progress[0]} / {progress[1]}</Typography>
+        <Typography>{progress[0]} / {progress[1]} cars copied from the legacy system.</Typography>
 
         <LinearProgress variant="determinate" value={100 * progress[0] / progress[1]} sx={{ height: 10, borderRadius: 5 }} />
+
+        {invalidCount > 0 && <Alert variant="filled" severity="warning">{invalidCount} cars do not match expected input. See the console for more details.</Alert>}
 
         {done && <Alert variant="filled" severity="success">Congratulations! You have completed the exercise!</Alert>}
 

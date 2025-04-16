@@ -19,7 +19,7 @@ export function CarTable({ cars }: { cars: ValidatedCar[] }) {
             sx={{ flexGrow: 2 }}
             rows={cars}
             columns={columns}
-            getRowId={car => car.licensePlate}
+            getRowId={car => car.id ?? car.licensePlate}
             initialState={{
                 pagination: {
                     paginationModel: {

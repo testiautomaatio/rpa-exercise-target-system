@@ -2,6 +2,7 @@ import { z } from "zod";
 import carsJson from "../../data/cars.json";
 
 export const carSchema = z.object({
+    id: z.number().optional(),
     licensePlate: z.string().nonempty(),
     make: z.string().nonempty(),
     model: z.string().nonempty(),
@@ -16,6 +17,7 @@ export const carSchema = z.object({
 export type Car = z.infer<typeof carSchema>;
 
 export const emptyCar: Car = {
+    id: 0,
     licensePlate: "",
     make: "",
     model: "",
@@ -34,16 +36,16 @@ const checkFields: Array<keyof Car> = ["licensePlate", "make", "model", "year", 
 /**
  * Checks if the car object is valid by comparing it to the given correct car object.
  */
-export function validateCar(test: Car): { valid: boolean, errors: Record<string, string>, emojis?: string } {
+export function validateCar(test: Car): { valid: boolean, errors: Record<string, string>, emojis: string } {
     const found = carsJson.find(c => c.licensePlate.toLowerCase() === test.licensePlate.toLowerCase());
 
     if (!found) {
-        return { valid: false, errors: { licensePlate: "Unknown license plate", } };
+        return { valid: false, emojis: '⚠️', errors: { licensePlate: `The license plate "${test.licensePlate}" does not match the expected cars.` } };
     }
 
     const errors: Record<string, string> = {};
     checkFields.forEach(k => {
-        const key = k as keyof Car;
+        const key = k as keyof Omit<Car, "id">;
         const expected = found[key];
         const actual = test[key];
 

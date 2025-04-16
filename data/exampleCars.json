@@ -1,5 +1,6 @@
 [
     {
+        "id": 1,
         "make": "Citroën",
         "model": "2CV",
         "vin": "undefined",
@@ -16,6 +17,7 @@
         "valid": true
     },
     {
+        "id": 2,
         "make": "Toyota",
         "model": "Corolla",
         "vin": "NaN",
