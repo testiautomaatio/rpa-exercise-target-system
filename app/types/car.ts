@@ -1,4 +1,5 @@
 import { z } from "zod";
+import carsJson from "../../data/cars.json";
 
 export const carSchema = z.object({
     licensePlate: z.string().nonempty(),
@@ -9,6 +10,7 @@ export const carSchema = z.object({
     owner: z.string().nonempty(),
     color: z.string(),
     streetLegal: z.boolean(),
+    emojis: z.string().optional(),
 });
 
 export type Car = z.infer<typeof carSchema>;
@@ -21,10 +23,10 @@ export const emptyCar: Car = {
     mileage: 0,
     owner: "",
     color: "",
-    streetLegal: false,
+    streetLegal: false
 } as const;
 
-export type ValidatedCar = Car & { errors?: string[] };
+export type ValidatedCar = Car & { valid?: boolean, errors?: string[] };
 
 const checkFields: Array<keyof Car> = ["licensePlate", "make", "model", "year", "mileage", "owner", "color", "streetLegal"] as const;
 
@@ -32,25 +34,28 @@ const checkFields: Array<keyof Car> = ["licensePlate", "make", "model", "year", 
 /**
  * Checks if the car object is valid by comparing it to the given correct car object.
  */
-export function validateCar(correct: Car | undefined, test: Car): { valid: boolean, errors: Record<string, string> } {
-    if (!correct) {
-        return { valid: false, errors: { licensePlate: "Car not found", } }
+export function validateCar(test: Car): { valid: boolean, errors: Record<string, string>, emojis?: string } {
+    const found = carsJson.find(c => c.licensePlate.toLowerCase() === test.licensePlate.toLowerCase());
+
+    if (!found) {
+        return { valid: false, errors: { licensePlate: "Unknown license plate", } };
     }
 
     const errors: Record<string, string> = {};
     checkFields.forEach(k => {
         const key = k as keyof Car;
-        const expected = correct[key];
+        const expected = found[key];
         const actual = test[key];
 
         if (expected !== actual) {
-            errors[key] = `"${key}" should have value "${expected}" but it was "${actual}"`;
+            errors[key] = `[${test.licensePlate}]: "${key}" should have value "${expected}" but it was "${actual}"`;
         }
     });
 
     return {
         valid: Object.keys(errors).length === 0,
-        errors
+        errors,
+        emojis: found.emojis,
     };
 }
 

@@ -1,7 +1,7 @@
 import { useForm, type FieldErrors, type UseFormRegister } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { carSchema, emptyCar, type Car } from "~/types/car";
-import { Button, Checkbox, FormControlLabel, Stack, TextField } from "@mui/material";
+import { Button, ButtonGroup, Checkbox, FormControlLabel, Stack, TextField, Typography } from "@mui/material";
 
 
 type AddCarFormProps = {
@@ -31,6 +31,8 @@ export function AddCarForm({ addCar }: AddCarFormProps) {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <Stack direction="column" spacing={2} mb={2}>
+                <Typography variant="h5">Add a new car</Typography>
+
                 <Input label="License plate" attr="licensePlate" register={register} errors={errors} />
 
                 <Input label="Make" attr="make" register={register} errors={errors} />
@@ -56,7 +58,9 @@ export function AddCarForm({ addCar }: AddCarFormProps) {
                     label="Street Legal"
                 />
 
-                <Button type="submit" variant="contained" color="primary">Save Car</Button>
+                <ButtonGroup fullWidth>
+                    <Button type="submit" variant="contained" color="success">💾 Save</Button>
+                </ButtonGroup>
             </Stack>
         </form>
     );

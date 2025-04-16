@@ -1,38 +1,38 @@
 import { test, describe, expect } from "vitest";
 import { validateCar } from "./car";
+import carJson from "../../data/cars.json";
 
 describe("Car Validation", () => {
 
-    const batmobile = {
-        "licensePlate": "DKNT-01",
-        "make": "Batmobile",
-        "model": "Tumbler",
-        "year": 2005,
-        "mileage": 5400,
-        "owner": "Bruce Wayne",
-        "color": "Matte Black",
-        "streetLegal": false,
-    };
+    const testCar = carJson.at(0)!;
 
     test("a car with correct values should pass", () => {
-        const copy = { ...batmobile };
-        const { valid, errors } = validateCar(batmobile, copy);
+        const copy = { ...testCar };
+        const { valid, errors } = validateCar(copy);
 
         expect(valid).toBe(true);
         expect(errors).toEqual({});
     });
 
-    test("each field with different values should be marked as errors", () => {
-        const copy = { ...batmobile, make: "Ford", mileage: 100000, streetLegal: true, licensePlate: "abc-123" };
-        const { valid, errors } = validateCar(batmobile, copy);
+    test("unknown license plate should be marked as the only error", () => {
+        const copy = { ...testCar, make: "Ford", mileage: 100000, streetLegal: true, licensePlate: "UNKNOWN" };
+        const { valid, errors } = validateCar(copy);
 
         expect(valid).toBe(false);
 
-        expect(Object.keys(errors)).toHaveLength(4);
+        expect(Object.keys(errors)).toEqual(["licensePlate"]);
+    });
+
+    test("each field with different values should be marked as errors", () => {
+        const copy = { ...testCar, make: "Ford", mileage: 100000, streetLegal: true };
+        const { valid, errors } = validateCar(copy);
+
+        expect(valid).toBe(false);
+
+        expect(Object.keys(errors)).toHaveLength(3);
         expect(Object.keys(errors)).toContain("make");
         expect(Object.keys(errors)).toContain("mileage");
         expect(Object.keys(errors)).toContain("streetLegal");
-        expect(Object.keys(errors)).toContain("licensePlate");
     });
 
 });

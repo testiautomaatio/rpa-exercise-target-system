@@ -1,38 +1,32 @@
 import type { Car, ValidatedCar } from "~/types/car";
-import { DataGrid, type GridRenderCellParams } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid';
+import { Stack, Typography } from "@mui/material";
 
 const columns = [
     { field: "licensePlate", headerName: "License plate" },
     { field: "make", headerName: "Make" },
     { field: "model", headerName: "Model" },
-    {
-        field: "errors",
-        headerName: "Errors",
-        renderCell: (params: GridRenderCellParams<any, Record<string, string>>) => {
-            const errors = params.value;
-            if (errors && Object.values(errors).length > 0) {
-                return `${Object.values(errors).length} errors`;
-            }
-            return "valid"
-        },
-    },
-
+    { field: "year", headerName: "Year" },
+    { field: "mileage", headerName: "Mileage" },
+    { field: "emojis", headerName: "" },
 ] as { field: keyof Car, headerName: string }[];
 
 
 export function CarTable({ cars }: { cars: ValidatedCar[] }) {
-    return <DataGrid
-        sx={{ flexGrow: 2 }}
-        rows={cars}
-        columns={columns}
-        checkboxSelection
-        getRowId={car => car.licensePlate}
-        initialState={{
-            pagination: {
-                paginationModel: {
-                    pageSize: 10,
+    return <Stack gap={2} flexDirection="column">
+        <Typography variant="h5">Cars</Typography>
+        <DataGrid
+            sx={{ flexGrow: 2 }}
+            rows={cars}
+            columns={columns}
+            getRowId={car => car.licensePlate}
+            initialState={{
+                pagination: {
+                    paginationModel: {
+                        pageSize: 10,
+                    },
                 },
-            },
-        }}
-    />;
+            }}
+        />
+    </Stack>;
 }

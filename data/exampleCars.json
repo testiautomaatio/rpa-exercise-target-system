@@ -1,0 +1,34 @@
+[
+    {
+        "make": "Citroën",
+        "model": "2CV",
+        "vin": "undefined",
+        "year": 1980,
+        "mileage": 50000,
+        "owner": "Amélie Poulain",
+        "source": "Amélie",
+        "fuelType": "Gasoline",
+        "color": "Blue",
+        "streetLegal": true,
+        "licensePlate": "AMEL-13",
+        "note": "A quirky car that matches her whimsical personality.",
+        "emojis": "❤️",
+        "valid": true
+    },
+    {
+        "make": "Toyota",
+        "model": "Corolla",
+        "vin": "NaN",
+        "year": 2005,
+        "mileage": 120000,
+        "owner": "",
+        "source": "Real Life",
+        "fuelType": "Gasoline",
+        "color": "Silver",
+        "streetLegal": true,
+        "licensePlate": "COROLL-4",
+        "note": "A reliable and practical car.",
+        "emojis": "🚗💨",
+        "valid": true
+    }
+]

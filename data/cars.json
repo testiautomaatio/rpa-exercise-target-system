@@ -11,7 +11,8 @@
         "color": "Stainless Steel",
         "streetLegal": false,
         "licensePlate": "OUTATIME",
-        "note": "Capable of time travel when it hits 88 mph."
+        "note": "Capable of time travel when it hits 88 mph.",
+        "emojis": "⏳⚡"
     },
     {
         "make": "Pontiac",
@@ -25,7 +26,8 @@
         "color": "Black",
         "streetLegal": true,
         "licensePlate": "KITT-2000",
-        "note": "Comes with an AI named KITT that talks and drives itself."
+        "note": "Comes with an AI named KITT that talks and drives itself.",
+        "emojis": "🤖🕶️"
     },
     {
         "make": "Chevrolet",
@@ -39,7 +41,8 @@
         "color": "Black",
         "streetLegal": true,
         "licensePlate": "KAZ 2Y5",
-        "note": "Stored with weapons for hunting supernatural creatures."
+        "note": "Stored with weapons for hunting supernatural creatures.",
+        "emojis": "🔫👻"
     },
     {
         "make": "Ford",
@@ -53,7 +56,8 @@
         "color": "Light Blue",
         "streetLegal": false,
         "licensePlate": "7990 TD",
-        "note": "Can fly and turn invisible. Escaped into the Forbidden Forest."
+        "note": "Can fly and turn invisible. Escaped into the Forbidden Forest.",
+        "emojis": "🧙‍♂️✨"
     },
     {
         "make": "Mini",
@@ -67,7 +71,8 @@
         "color": "Citron Green with black hood",
         "streetLegal": true,
         "licensePlate": "SLW 287R",
-        "note": "Sometimes driven from the roof using ropes and a mop."
+        "note": "Sometimes driven from the roof using ropes and a mop.",
+        "emojis": "🤪😂"
     },
     {
         "make": "Toyota",
@@ -81,7 +86,8 @@
         "color": "Orange",
         "streetLegal": false,
         "licensePlate": "FAST4U",
-        "note": "Tuned for street racing — not exactly emissions compliant."
+        "note": "Tuned for street racing — not exactly emissions compliant.",
+        "emojis": "🏎️💨"
     },
     {
         "make": "Dodge",
@@ -95,7 +101,8 @@
         "color": "Matte Black",
         "streetLegal": false,
         "licensePlate": "FMLY1ST",
-        "note": "Built for drag races and family loyalty."
+        "note": "Built for drag races and family loyalty.",
+        "emojis": "💪🏁"
     },
     {
         "make": "Porsche",
@@ -109,7 +116,8 @@
         "color": "Silver",
         "streetLegal": true,
         "licensePlate": "TMB-RDR",
-        "note": "Fast, sleek, and sometimes used to chase ancient artifacts."
+        "note": "Fast, sleek, and sometimes used to chase ancient artifacts.",
+        "emojis": "🗡️🏎️"
     },
     {
         "make": "Batmobile",
@@ -123,7 +131,8 @@
         "color": "Matte Black",
         "streetLegal": false,
         "licensePlate": "DKNT-01",
-        "note": "Vehicle with stealth mode and a rocket booster."
+        "note": "Vehicle with stealth mode and a rocket booster.",
+        "emojis": "🦇🖤"
     },
     {
         "make": "Warthog",
@@ -137,7 +146,8 @@
         "color": "Olive Green",
         "streetLegal": false,
         "licensePlate": "UNSC117",
-        "note": "All-terrain UNSC vehicle."
+        "note": "All-terrain UNSC vehicle.",
+        "emojis": "🔫👽"
     },
     {
         "make": "Volkswagen",
@@ -151,7 +161,8 @@
         "color": "White with red and blue stripes",
         "streetLegal": true,
         "licensePlate": "HERBIE",
-        "note": "A sentient car with a mind of its own."
+        "note": "A sentient car with a mind of its own.",
+        "emojis": "❤️🐛"
     },
     {
         "make": "Ford",
@@ -165,7 +176,8 @@
         "color": "Black",
         "streetLegal": true,
         "licensePlate": "MODEL-T",
-        "note": "The first mass-produced car."
+        "note": "The first mass-produced car.",
+        "emojis": "🏭🛞"
     },
     {
         "make": "Aston Martin",
@@ -179,6 +191,7 @@
         "color": "Silver Birch",
         "streetLegal": true,
         "licensePlate": "BOND007",
-        "note": "Equipped with gadgets."
+        "note": "Equipped with gadgets.",
+        "emojis": "🕵️‍♂️💼"
     }
 ]
