@@ -72,6 +72,7 @@ type InputProps = {
     register: UseFormRegister<Car>,
     errors: FieldErrors<Car>,
 }
+
 function Input({ attr: attr, label, register, errors }: InputProps) {
     return <>
         <TextField

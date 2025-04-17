@@ -2,14 +2,14 @@ import { z } from "zod";
 import carsJson from "../../data/cars.json";
 
 export const carSchema = z.object({
-    id: z.number().optional(),
+    id: z.number(),
     licensePlate: z.string().nonempty(),
     make: z.string().nonempty(),
     model: z.string().nonempty(),
     year: z.coerce.number().int().gte(1886),
     mileage: z.coerce.number().int().min(0),
     owner: z.string().nonempty(),
-    color: z.string(),
+    color: z.string().nonempty(),
     streetLegal: z.boolean(),
     emojis: z.string().optional(),
 });

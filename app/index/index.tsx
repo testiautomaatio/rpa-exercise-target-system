@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { validateCar, type Car, type ValidatedCar } from "~/types/car";
 import { AddCarForm } from "./AddCarForm";
 import { Alert, Box, LinearProgress, Link, Paper, Snackbar, Stack, Typography } from "@mui/material";
@@ -17,17 +17,21 @@ export function Index() {
     const [cars, setCars] = useState<ValidatedCar[]>(exampleCarsJson);
     const [snackMessage, setSnackMessage] = useState<SnackbarMessage | null>(null);
 
-    const addCar = (submitted: Car) => {
-        const { valid, errors, emojis } = validateCar(submitted);
+    const addCar = (newCar: Car) => {
+        const { valid, errors, emojis } = validateCar(newCar);
 
         if (valid) {
-            setSnackMessage({ severity: "success", message: `${submitted.licensePlate} was added successfully!` });
+            setSnackMessage({ severity: "success", message: `${newCar.licensePlate} was added successfully!` });
         } else {
             Object.values(errors).forEach((error) => console.error(error));
             setSnackMessage({ severity: "warning", message: "This car did not match the expected input. Please check the console for details." });
         }
 
-        setCars([...cars, { id: new Date().getTime(), ...submitted, valid, emojis, errors: Object.values(errors) }]);
+        // give the new car a random id
+        newCar.id = Math.round(Math.random() * 1_000_000_000);
+        newCar.emojis = emojis;
+
+        setCars(cars => [...cars, { ...newCar, valid, errors: Object.values(errors) }]);
     }
 
 
@@ -91,6 +95,8 @@ function Instructions() {
 }
 
 function ExerciseProgress({ cars }: { cars: ValidatedCar[] }) {
+    const [confetti, setConfetti] = useState(false);
+
     const correctPlates = carsJson.map(c => c.licensePlate);
     const validPlatesAdded = cars.filter(c => c.valid).map(c => c.licensePlate);
 
@@ -99,6 +105,14 @@ function ExerciseProgress({ cars }: { cars: ValidatedCar[] }) {
     const done = correctPlates.every(p => validPlatesAdded.includes(p));
     const invalidCount = cars.filter(c => !c.valid).length;
 
+    useEffect(() => {
+        if (done) {
+            // delay confetti so it doesn't show up in the browser trace
+            setTimeout(() => {
+                setConfetti(true);
+            }, 1_000);
+        }
+    }, [done]);
     return <Stack gap={2} mb={4}>
 
         <Typography>{progress[0]} / {progress[1]} cars copied from the legacy system.</Typography>
@@ -111,7 +125,7 @@ function ExerciseProgress({ cars }: { cars: ValidatedCar[] }) {
 
         {done && <Trophy />}
 
-        {done && <Confetti width={document.body.clientWidth} height={document.body.clientHeight} />}
+        {done && confetti && <Confetti width={document.body.clientWidth} height={document.body.clientHeight} />}
 
     </Stack>;
 
